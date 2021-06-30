@@ -1,0 +1,8 @@
+#!/bin/sh
+pushd wiki &> /dev/null
+python3 scripts/transform.py
+popd &> /dev/null
+rm -rf __dist__
+mkdir -p __dist__
+cp -r wiki/__dist__ __dist__/wiki
+cp index.* __dist__
