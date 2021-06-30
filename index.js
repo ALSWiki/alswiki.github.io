@@ -21,7 +21,7 @@ const getArticles = (() => {
 /** @type {(name: String) => Article} */
 const articleNameToArticle = name => ({
   name: name.toLowerCase(),
-  href: `./en/${name.replaceAll(" ", "_")}.html`
+  href: `/wiki/en/${name.replaceAll(" ", "_")}.html`
 });
 
 /** @type {(query: String) => Article[]} */
@@ -63,10 +63,29 @@ const html = (template, ...args) => {
   template.forEach((string, i) => {
     res.push(string);
     if (i == template.length) return;
-    res.push(sanitizeHTML(args[i]));
+    if (args[i] instanceof Array) {
+      args[i].forEach(arg => res.push(arg.outerHTML ?? arg));
+    }
+    else {
+      res.push(sanitizeHTML(args[i]));
+    }
   });
   return htmlToElement(res.join(''));
 };
+
+/** @type {(article: Article) => HTMLElement} */
+const renderRecommendation = article => html`
+  <a class="article-recommendation" href="${article.href}">
+    <div>${article.name}</div>
+  </a>
+`;
+
+/** @type {(articles: Article[]) => HTMLElement} */
+const renderRecommendations = articles => html`
+  <div class="recommendation-container">
+    ${articles.map(renderRecommendation)}
+  </div>
+`;
 
 /** @type {(input: HTMLElement) => void} */
 const attachSearcherToElement = input => {
@@ -75,4 +94,14 @@ const attachSearcherToElement = input => {
   });
 };
 
+const repeat = num => arr => {
+  const res = [];
+  for (let i = 0; i < num; ++i) {
+    res.push(...arr);
+  }
+  return res;
+};
+
 document.querySelectorAll('.article-search input').forEach(attachSearcherToElement);
+const test = document.querySelector('#test');
+matchRecommends('samp').then(repeat(10)).then(renderRecommendations).then(test.appendChild.bind(test));

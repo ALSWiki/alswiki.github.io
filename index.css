@@ -36,6 +36,14 @@ main {
   border-left: 0.25rem solid #E0E3E6;
 }
 
+.d-flex {
+  display: flex;
+}
+
+.d-col {
+  flex-direction: column;
+}
+
 .article-search {
   float: right;
 }
@@ -49,4 +57,22 @@ main {
 .big-search {
   width: 100%;
   text-align: center;
+}
+
+.article-recommendation {
+  text-decoration: none;
+  color: black;
+}
+
+.article-recommendation div {
+  height: 1.1rem;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.article-recommendation:nth-child(even) div {
+  background-color: #F6F8FA;
+}
+
+.article-recommendation:hover div {
+  background-color: #3e9cf9;
 }
