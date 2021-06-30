@@ -1,3 +1,5 @@
+'use strict';
+
 /** @typedef {{name: String, href: String}} Article */
 
 const toJson = r => r.json();
@@ -40,6 +42,31 @@ const matchRecommends = (() => {
     return articles.map(articleNameToArticle);
   };
 })();
+
+/** @type {(html: String) => HTMLElement} */
+const htmlToElement = html => {
+  const container = document.createElement('body');
+  container.innerHTML = html
+  return container.querySelector('*');
+};
+
+/** @type {(unsafe: String) => String} */
+const sanitizeHTML = unsafe => {
+  const container = document.createElement('p');
+  container.textContent = unsafe;
+  return container.innerHTML;
+};
+
+/** @type {(template: String[], args: String[]) => HTMLElement} */
+const html = (template, ...args) => {
+  const res = [];
+  template.forEach((string, i) => {
+    res.push(string);
+    if (i == template.length) return;
+    res.push(sanitizeHTML(args[i]));
+  });
+  return htmlToElement(res.join(''));
+};
 
 /** @type {(input: HTMLElement) => void} */
 const attachSearcherToElement = input => {
