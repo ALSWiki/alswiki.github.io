@@ -7,7 +7,8 @@ A community-aggregated source of information about ALS and how to support those 
 ### Setup
 
 ```bash
-git clone git@github.com:ALSWiki/wiki.git
+git clone git@github.com:ALSWiki/alswiki.github.io.git # gh repo clone ALSWiki/alswiki.github.io if you have gh
+git clone git@github.com:ALSWiki/wiki.git # gh repo clone ALSWiki/wiki if you have gh
 cd wiki
 python3 -m pip install -r scripts/requirements.txt
 ```

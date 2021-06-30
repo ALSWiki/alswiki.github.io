@@ -5,6 +5,7 @@ const emptyArr = () => [];
 
 /** @type {() => String[]} */
 const getArticles = (() => {
+  /** @type {String[]} */
   let articles = [];
 
   return async () => {
@@ -23,18 +24,20 @@ const articleNameToArticle = name => ({
 
 /** @type {(query: String) => Article[]} */
 const matchRecommends = (() => {
+  /** @type {String[]} */
   let articles = [];
+  /** @type {String | null} */
   let previousQuery = null;
 
   return async query => {
+    if (query === '') return [];
     query = query.toLowerCase().trim();
     if (!query.startsWith(previousQuery)) {
       articles = await getArticles();
     }
     previousQuery = query;
-    return articles
-      .filter(art => art.toLowerCase().includes(query))
-      .map(articleNameToArticle);
+    articles = articles.filter(art => art.toLowerCase().includes(query))
+    return articles.map(articleNameToArticle);
   };
 })();
 
