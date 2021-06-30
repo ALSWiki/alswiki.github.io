@@ -1,0 +1,52 @@
+.md table, td, th {
+  border: 1px solid #E0E3E6;
+}
+
+.md table {
+  border-collapse: collapse;
+}
+
+.md td, .md th {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.md tbody > tr:nth-child(even) {
+  background-color: #F6F8FA;
+}
+
+.md ul p {
+  margin: 0;
+}
+
+.md li > ul {
+  padding-left: 1.25rem;
+}
+
+main {
+  width: 100%;
+  margin: auto;
+  font-family: Arial,sans-serif;
+}
+
+.md blockquote {
+  padding: 0 1rem;
+  margin: 0;
+  color: #6A737D;
+  border-left: 0.25rem solid #E0E3E6;
+}
+
+.article-search {
+  float: right;
+}
+
+.big-search input {
+  float: unset;
+  width: 80%;
+  font-size: 1.2rem;
+}
+
+.big-search {
+  width: 100%;
+  text-align: center;
+}

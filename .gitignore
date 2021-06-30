@@ -1,0 +1,4 @@
+wiki/
+__pycache__/
+*.swp
+__dist__/
