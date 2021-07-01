@@ -89,7 +89,7 @@ const renderRecommendations = articles => html`
 
 /** @type {(searchDiv: HTMLElement, articles: Article[]) => void} */
 const updateRecommendations = (searchDiv, articles) => {
-  // articles = repeat(10)(articles);
+  articles = repeat(10)(articles);
   const prevContainer = searchDiv.querySelector('.recommendation-container');
   if (prevContainer) searchDiv.removeChild(prevContainer);
   if (articles.length) searchDiv.appendChild(renderRecommendations(articles));
@@ -103,6 +103,9 @@ const attachSearcherToElement = searchContainer => {
   });
 };
 
+/** @type {(element: HTMLElement) => void} */
+const clearValue = element => element.value = '';
+
 const repeat = num => arr => {
   const res = [];
   for (let i = 0; i < num; ++i) {
@@ -112,3 +115,4 @@ const repeat = num => arr => {
 };
 
 document.querySelectorAll('.article-search').forEach(attachSearcherToElement);
+document.querySelectorAll('input').forEach(clearValue);
