@@ -46,6 +46,8 @@ main {
 
 .article-search {
   float: right;
+  display: flex;
+  flex-direction: column;
 }
 
 .big-search input {
@@ -83,6 +85,7 @@ main {
 
 .recommendation-container {
   border: 1px solid #E0E3E6;
+  z-index: 10;
 }
 
 .big-search .recommendation-container {
