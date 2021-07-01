@@ -12,7 +12,7 @@ const getArticles = (() => {
 
   return async () => {
     if (articles.length) return articles;
-    return articles = await fetch('./wiki/articles.json')
+    return articles = await fetch('/wiki/articles.json')
       .then(toJson)
       .catch(emptyArr);
   };
