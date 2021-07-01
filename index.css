@@ -86,8 +86,13 @@ main {
 .recommendation-container {
   border: 1px solid #E0E3E6;
   z-index: 10;
+  display: none;
 }
 
 .big-search .recommendation-container {
   width: calc(100% + 0.38rem);
+}
+
+.article-search:focus-within .recommendation-container {
+  display: block;
 }
