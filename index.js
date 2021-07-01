@@ -87,10 +87,19 @@ const renderRecommendations = articles => html`
   </div>
 `;
 
-/** @type {(input: HTMLElement) => void} */
-const attachSearcherToElement = input => {
+/** @type {(searchDiv: HTMLElement, articles: Article[]) => void} */
+const updateRecommendations = (searchDiv, articles) => {
+  // articles = repeat(10)(articles);
+  const prevContainer = searchDiv.querySelector('.recommendation-container');
+  if (prevContainer) searchDiv.removeChild(prevContainer);
+  if (articles.length) searchDiv.appendChild(renderRecommendations(articles));
+};
+
+/** @type {(searchContainer: HTMLElement) => void} */
+const attachSearcherToElement = searchContainer => {
+  const input = searchContainer.querySelector('input');
   input.addEventListener('input', async () => {
-     console.log(await matchRecommends(input.value));
+     updateRecommendations(searchContainer, await matchRecommends(input.value));
   });
 };
 
@@ -102,6 +111,4 @@ const repeat = num => arr => {
   return res;
 };
 
-document.querySelectorAll('.article-search input').forEach(attachSearcherToElement);
-const test = document.querySelector('#test');
-matchRecommends('samp').then(repeat(10)).then(renderRecommendations).then(test.appendChild.bind(test));
+document.querySelectorAll('.article-search').forEach(attachSearcherToElement);

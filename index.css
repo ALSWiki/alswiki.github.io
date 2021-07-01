@@ -1,4 +1,4 @@
-.md table, td, th {
+.md table, .md td, .md th {
   border: 1px solid #E0E3E6;
 }
 
@@ -50,13 +50,17 @@ main {
 
 .big-search input {
   float: unset;
-  width: 80%;
+  width: 100%;
   font-size: 1.2rem;
 }
 
 .big-search {
+  width: 80%;
+}
+
+.big-search-container {
   width: 100%;
-  text-align: center;
+  justify-content: center;
 }
 
 .article-recommendation {
@@ -75,4 +79,12 @@ main {
 
 .article-recommendation:hover div {
   background-color: #3e9cf9;
+}
+
+.recommendation-container {
+  border: 1px solid #E0E3E6;
+}
+
+.big-search .recommendation-container {
+  width: calc(100% + 0.38rem);
 }
