@@ -2,6 +2,7 @@
 
 /** @typedef {{name: String, href: String}} Article */
 
+/** @type {{json: () => Object}} */
 const toJson = r => r.json();
 const emptyArr = () => [];
 
@@ -57,8 +58,9 @@ const sanitizeHTML = unsafe => {
   return container.innerHTML;
 };
 
-/** @type {(template: String[], args: String[]) => HTMLElement} */
+/** @type {(template: String[], args: (String | HTMLElement)[]) => HTMLElement} */
 const html = (template, ...args) => {
+  /** @type {String[]} */
   const res = [];
   template.forEach((string, i) => {
     res.push(string);
@@ -106,7 +108,12 @@ const attachSearcherToElement = searchContainer => {
 /** @type {(element: HTMLElement) => void} */
 const clearValue = element => element.value = '';
 
+/**
+ * @template {T}
+ * @type {(num: Number) => (arr: T[]) => T[]}
+ */
 const repeat = num => arr => {
+  /** @type {T[]} */
   const res = [];
   for (let i = 0; i < num; ++i) {
     res.push(...arr);
