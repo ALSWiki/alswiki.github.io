@@ -44,8 +44,13 @@ main {
   flex-direction: column;
 }
 
-.article-search {
+.top-right {
   float: right;
+  display: flex;
+  flex-direction: row;
+}
+
+.article-search {
   display: flex;
   flex-direction: column;
 }
@@ -95,4 +100,17 @@ main {
 
 .article-search:focus-within .recommendation-container {
   display: block;
+}
+
+
+/**
+ * Google Translation css
+ */
+
+#google_translate_element {
+  margin-right: 1rem;
+}
+
+.skiptranslate {
+  height: 0px !important;
 }

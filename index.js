@@ -108,6 +108,21 @@ const attachSearcherToElement = searchContainer => {
 /** @type {(element: HTMLElement) => void} */
 const clearValue = element => element.value = '';
 
+/** @type {() => void} */
+const loadTranslationButton = () => {
+  const script = document.createElement('script');
+  script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  document.head.append(script);
+};
+
+window.googleTranslateElementInit = () => {
+  new google.translate.TranslateElement({
+    pageLanguage: 'auto'
+  }, 'google_translate_element');
+};
+
+loadTranslationButton();
+
 /**
  * @template {T}
  * @type {(num: Number) => (arr: T[]) => T[]}
