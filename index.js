@@ -119,6 +119,14 @@ window.googleTranslateElementInit = () => {
   new google.translate.TranslateElement({
     pageLanguage: 'auto'
   }, 'google_translate_element');
+
+  const interval = setInterval(() => {
+    console.log(document.body.style.top);
+    if (document.body.style.top == '40px') {
+      document.body.style.top = 0;
+      clearInterval(interval);
+    }
+  });
 };
 
 loadTranslationButton();

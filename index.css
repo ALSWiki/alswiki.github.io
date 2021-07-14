@@ -114,3 +114,7 @@ main {
 .skiptranslate {
   height: 0px !important;
 }
+
+.skiptranslate > iframe.skiptranslate {
+  display: none;
+}
