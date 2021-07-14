@@ -110,6 +110,7 @@ const clearValue = element => element.value = '';
 
 /** @type {() => void} */
 const loadTranslationButton = () => {
+  document.querySelector('#google_translate_element').innerHTML = '';
   const script = document.createElement('script');
   script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
   document.head.append(script);
@@ -120,16 +121,15 @@ window.googleTranslateElementInit = () => {
     pageLanguage: 'auto'
   }, 'google_translate_element');
 
+  // The google translate banner styles the body with top: 40px which is annoying
+  // when the translate banner is set to display: none
   const interval = setInterval(() => {
-    console.log(document.body.style.top);
     if (document.body.style.top == '40px') {
       document.body.style.top = 0;
       clearInterval(interval);
     }
   });
 };
-
-loadTranslationButton();
 
 /**
  * @template {T}

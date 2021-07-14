@@ -1,3 +1,7 @@
+/**
+ * Markdown styling
+ */
+
 .md table, .md td, .md th {
   border: 1px solid #E0E3E6;
 }
@@ -35,6 +39,10 @@ main {
   color: #6A737D;
   border-left: 0.25rem solid #E0E3E6;
 }
+
+/**
+ * Site styling
+ */
 
 .d-flex {
   display: flex;
@@ -101,7 +109,6 @@ main {
 .article-search:focus-within .recommendation-container {
   display: block;
 }
-
 
 /**
  * Google Translation css
