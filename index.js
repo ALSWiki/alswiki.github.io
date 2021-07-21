@@ -91,7 +91,6 @@ const renderRecommendations = articles => html`
 
 /** @type {(searchDiv: HTMLElement, articles: Article[]) => void} */
 const updateRecommendations = (searchDiv, articles) => {
-  articles = repeat(10)(articles);
   const prevContainer = searchDiv.querySelector('.recommendation-container');
   if (prevContainer) searchDiv.removeChild(prevContainer);
   if (articles.length) searchDiv.appendChild(renderRecommendations(articles));
@@ -111,6 +110,8 @@ const clearValue = element => element.value = '';
 /** @type {() => void} */
 const loadTranslationButton = () => {
   document.querySelector('#google_translate_element').innerHTML = '';
+
+  // Manually create script element since html template won't work for <script />
   const script = document.createElement('script');
   script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
   document.head.append(script);
