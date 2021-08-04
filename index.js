@@ -1,10 +1,6 @@
 'use strict';
 
-/** @typedef {{name: String, href: String}} Article */
-
-/** @type {{json: () => Object}} */
-const toJson = r => r.json();
-const emptyArr = () => [];
+import { toJson, emptyArr, articleNameToArticle, html, clearValue } from './common.js';
 
 /** @type {() => String[]} */
 const getArticles = (() => {
@@ -18,12 +14,6 @@ const getArticles = (() => {
       .catch(emptyArr);
   };
 })();
-
-/** @type {(name: String) => Article} */
-const articleNameToArticle = name => ({
-  name: name.toLowerCase(),
-  href: `/wiki/en/${name.replaceAll(" ", "_")}.html`
-});
 
 /** @type {(query: String) => Article[]} */
 const matchRecommends = (() => {
@@ -43,37 +33,6 @@ const matchRecommends = (() => {
     return articles.map(articleNameToArticle);
   };
 })();
-
-/** @type {(html: String) => HTMLElement} */
-const htmlToElement = html => {
-  const container = document.createElement('body');
-  container.innerHTML = html
-  return container.querySelector('*');
-};
-
-/** @type {(unsafe: String) => String} */
-const sanitizeHTML = unsafe => {
-  const container = document.createElement('p');
-  container.textContent = unsafe;
-  return container.innerHTML;
-};
-
-/** @type {(template: String[], args: (String | HTMLElement)[]) => HTMLElement} */
-const html = (template, ...args) => {
-  /** @type {String[]} */
-  const res = [];
-  template.forEach((string, i) => {
-    res.push(string);
-    if (i == template.length) return;
-    if (args[i] instanceof Array) {
-      args[i].forEach(arg => res.push(arg.outerHTML ?? arg));
-    }
-    else {
-      res.push(sanitizeHTML(args[i]));
-    }
-  });
-  return htmlToElement(res.join(''));
-};
 
 /** @type {(article: Article) => HTMLElement} */
 const renderRecommendation = article => html`
@@ -103,9 +62,6 @@ const attachSearcherToElement = searchContainer => {
      updateRecommendations(searchContainer, await matchRecommends(input.value));
   });
 };
-
-/** @type {(element: HTMLElement) => void} */
-const clearValue = element => element.value = '';
 
 /** @type {() => void} */
 const loadTranslationButton = () => {

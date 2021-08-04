@@ -6,3 +6,5 @@ rm -rf __dist__
 mkdir -p __dist__
 cp -r wiki/__dist__ __dist__/wiki
 cp index.* __dist__
+cp *.js __dist__
+cp -r search __dist__
