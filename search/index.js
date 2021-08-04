@@ -72,7 +72,6 @@ clearValue(input);
 input.addEventListener('input', () => searchIndex(input.value)
   .then(updateRecommendations));
 
-
 /** @type (article: Article) => HTMLElement */
 const renderArticle = article => html`
   <li>
@@ -101,5 +100,11 @@ const renderRecommendations = recs => html`
   </div>
 `;
 
-window.getIndex = getIndex;
-window.searchIndex = searchIndex;
+// Update the input bar with the query parameters
+(() => {
+  const params = new URLSearchParams(window.location.search);
+  const query = params.get('q');
+  if (query == null) return;
+  input.value = query;
+  searchIndex(query).then(updateRecommendations);
+})();
