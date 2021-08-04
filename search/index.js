@@ -67,6 +67,8 @@ const updateRecommendations = (recommendations) => {
   if (recommendations.length) searchResults.appendChild(renderRecommendations(recommendations));
 };
 
+clearValue(input);
+
 input.addEventListener('input', () => searchIndex(input.value)
   .then(updateRecommendations));
 
@@ -101,4 +103,3 @@ const renderRecommendations = recs => html`
 
 window.getIndex = getIndex;
 window.searchIndex = searchIndex;
-document.querySelectorAll('input').forEach(clearValue);

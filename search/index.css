@@ -1,0 +1,34 @@
+.results-container {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.one-recommendation h2 {
+  padding-right: 1rem;
+}
+
+.results-container ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .results-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .articles {
+    text-align: center;
+  }
+
+  .one-recommendation h2 {
+    padding-right: 0;
+    text-align: center;
+  }
+}
