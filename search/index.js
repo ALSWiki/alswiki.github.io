@@ -1,7 +1,13 @@
 'use strict';
 
-import { toJson, clearValue, genQuerier } from '../common.js';
+import { articleNameToArticle, toJson, clearValue, genQuerier, html } from '../common.js';
 
+/**
+  * @typedef {[String, Number[]]} Recommendation
+  * 
+  * The string is the topic of the recommendation
+  * The array of numbers is an array of article numbers to be looked up
+  */
 
 const getIndex = (() => {
   let index = null;
@@ -40,8 +46,58 @@ const getIndex = (() => {
   };
 })();
 
+const lookupTitleSync = (() => {
+  let titlesLookup = null;
+  getIndex().then(dex => titlesLookup = dex.titlesLookup);
+  return titleNum => {
+    if (titlesLookup == null) return '';
+    return titlesLookup[titleNum];
+  }
+})();
+
 const getTopics = () => getIndex().then(({ index }) => index);
 const searchIndex = genQuerier(getTopics, n => n[0]);
+
+const input = document.querySelector('input');
+const searchResults = document.querySelector('.search-results');
+
+const updateRecommendations = (recommendations) => {
+  const prevContainer = searchResults.querySelector('.results-container');
+  if (prevContainer) searchResults.removeChild(prevContainer);
+  if (recommendations.length) searchResults.appendChild(renderRecommendations(recommendations));
+};
+
+input.addEventListener('input', () => searchIndex(input.value)
+  .then(updateRecommendations));
+
+
+/** @type (article: Article) => HTMLElement */
+const renderArticle = article => html`
+  <li>
+    <a href="${article.href}">
+      ${article.name}
+    </a>
+  </li>
+`;
+
+/** @type (rec: Recommendation) => HTMLElement */
+const renderRecommendation = rec => html`
+  <section class="one-recommendation">
+    <h2>${rec[0]}</h2>
+    <div class="articles">
+      <ul>
+        ${rec[1].map(lookupTitleSync).map(articleNameToArticle).map(renderArticle)}
+      </ul>
+    </div>
+  </section>
+`;
+
+/** @type (recs: Recommendation[]) => HTMLElement */
+const renderRecommendations = recs => html`
+  <div class="results-container">
+    ${recs.map(renderRecommendation)}
+  </div>
+`;
 
 window.getIndex = getIndex;
 window.searchIndex = searchIndex;
