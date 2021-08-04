@@ -20,6 +20,9 @@ const matchQuerier = genQuerier(getArticles, n => n);
 const matchRecommends = query => matchQuerier(query)
   .then(res => res.map(articleNameToArticle));
 
+/** @type {(query: String) => String} */
+const search = query => `/search?q=${encodeURIComponent(query)}`;
+
 /** @type {(article: Article) => HTMLElement} */
 const renderRecommendation = article => html`
   <a class="article-recommendation" href="${article.href}">
@@ -27,25 +30,28 @@ const renderRecommendation = article => html`
   </a>
 `;
 
-/** @type {(articles: Article[]) => HTMLElement} */
-const renderRecommendations = articles => html`
+/** @type {(articles: Article[], query: String) => HTMLElement} */
+const renderRecommendations = (articles, query) => html`
   <div class="recommendation-container">
-    ${articles.map(renderRecommendation)}
+    ${articles.slice(0, 9).map(renderRecommendation)}
+    <a class="article-recommendation" href="${search(query)}">
+      <div>Search entire wiki</div>
+    </a>
   </div>
 `;
 
-/** @type {(searchDiv: HTMLElement, articles: Article[]) => void} */
-const updateRecommendations = (searchDiv, articles) => {
+/** @type {(searchDiv: HTMLElement, articles: Article[], query: String) => void} */
+const updateRecommendations = (searchDiv, articles, query) => {
   const prevContainer = searchDiv.querySelector('.recommendation-container');
   if (prevContainer) searchDiv.removeChild(prevContainer);
-  if (articles.length) searchDiv.appendChild(renderRecommendations(articles));
+  if (query) searchDiv.appendChild(renderRecommendations(articles, query));
 };
 
 /** @type {(searchContainer: HTMLElement) => void} */
 const attachSearcherToElement = searchContainer => {
   const input = searchContainer.querySelector('input');
   input.addEventListener('input', async () => {
-     updateRecommendations(searchContainer, await matchRecommends(input.value));
+     updateRecommendations(searchContainer, await matchRecommends(input.value), input.value);
   });
 };
 
