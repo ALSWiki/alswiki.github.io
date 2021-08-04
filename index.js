@@ -1,6 +1,6 @@
 'use strict';
 
-import { toJson, emptyArr, articleNameToArticle, html, clearValue } from './common.js';
+import { toJson, emptyArr, articleNameToArticle, html, clearValue, genQuerier } from './common.js';
 
 /** @type {() => String[]} */
 const getArticles = (() => {
@@ -15,24 +15,10 @@ const getArticles = (() => {
   };
 })();
 
-/** @type {(query: String) => Article[]} */
-const matchRecommends = (() => {
-  /** @type {String[]} */
-  let articles = [];
-  /** @type {String | null} */
-  let previousQuery = null;
+const matchQuerier = genQuerier(getArticles, n => n);
 
-  return async query => {
-    if (query === '') return [];
-    query = query.toLowerCase().trim();
-    if (!query.startsWith(previousQuery)) {
-      articles = await getArticles();
-    }
-    previousQuery = query;
-    articles = articles.filter(art => art.toLowerCase().includes(query))
-    return articles.map(articleNameToArticle);
-  };
-})();
+const matchRecommends = query => matchQuerier(query)
+  .then(res => res.map(articleNameToArticle));
 
 /** @type {(article: Article) => HTMLElement} */
 const renderRecommendation = article => html`

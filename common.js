@@ -43,3 +43,27 @@ export const html = (template, ...args) => {
 
 /** @type {(element: HTMLElement) => void} */
 export const clearValue = element => element.value = '';
+
+/**
+ * @template {T}
+ * @param {() => Promise<T>} getContents
+ * @param {(content: T) => String} getName
+ * @return {(query: String) => Promise<T[]>}
+ */
+export const genQuerier = (getContents, getName) => {
+  /** @type {T[]} */
+  let contents = [];
+  /** @type {String | null} */
+  let previousQuery = null;
+
+  return async query => {
+    if (query === '') return [];
+    query = query.toLowerCase().trim();
+    if (!query.startsWith(previousQuery)) {
+      contents = await getContents();
+    }
+    previousQuery = query;
+    return contents =
+      contents.filter(art => getName(art.toLowerCase()).includes(query));
+  };
+};
