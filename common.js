@@ -46,7 +46,7 @@ export const clearValue = element => element.value = '';
 
 /**
  * @template {T}
- * @param {() => Promise<T>} getContents
+ * @param {() => Promise<T[]>} getContents
  * @param {(content: T) => String} getName
  * @return {(query: String) => Promise<T[]>}
  */
@@ -64,6 +64,6 @@ export const genQuerier = (getContents, getName) => {
     }
     previousQuery = query;
     return contents =
-      contents.filter(art => getName(art.toLowerCase()).includes(query));
+      contents.filter(art => getName(art).toLowerCase().includes(query));
   };
 };
