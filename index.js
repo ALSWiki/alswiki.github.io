@@ -56,7 +56,7 @@ const attachSearcherToElement = searchContainer => {
 };
 
 /** @type {() => void} */
-const loadTranslationButton = () => {
+const loadTranslationButton = window.loadTranslationButton = () => {
   document.querySelector('#google_translate_element').innerHTML = '';
 
   // Manually create script element since html template won't work for <script />
