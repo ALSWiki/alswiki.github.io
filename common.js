@@ -7,7 +7,7 @@ export const emptyArr = () => [];
 /** @type {(name: String) => Article} */
 export const articleNameToArticle = name => ({
   name: name.toLowerCase(),
-  href: `/wiki/en/${name.replaceAll(" ", "_")}.html`
+  href: `/wiki/en/${name.replaceAll(' ', '_')}.html`
 });
 
 /** @type {(html: String) => HTMLElement} */
