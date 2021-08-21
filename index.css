@@ -48,6 +48,19 @@ main {
  * Site styling
  */
 
+.landing-main h1 {
+  font-size: 64px;
+  margin-bottom: 0;
+}
+
+.landing-main h2 {
+  color: gray;
+}
+
+.landing-main {
+  text-align: center;
+}
+
 .d-flex {
   display: flex;
 }
