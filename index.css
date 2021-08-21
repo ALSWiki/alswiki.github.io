@@ -63,6 +63,7 @@ main {
 
 .article-search {
   display: flex;
+  margin-right: 1.75rem;
   flex-direction: column;
 }
 
