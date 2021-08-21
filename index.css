@@ -27,6 +27,11 @@
   padding-left: 1.25rem;
 }
 
+.md img {
+  box-sizing: content-box;
+  max-width: 97%;
+}
+
 main {
   width: 100%;
   margin-right: 1.5rem;
