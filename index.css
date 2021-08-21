@@ -29,7 +29,10 @@
 
 main {
   width: 100%;
-  margin: auto;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
   font-family: Arial,sans-serif;
 }
 
