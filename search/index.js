@@ -17,8 +17,7 @@ const getIndex = (() => {
     .then(toJson)
     .then(Object.entries);
   const titlesPromise = fetch('/wiki/articles.json')
-    .then(toJson)
-    .then(titles => titles.slice(1)); // starts with readme
+    .then(toJson);
 
   return async () => {
     if (index == null) {
@@ -87,7 +86,7 @@ const renderRecommendation = rec => html`
     <h2>${rec[0]}</h2>
     <div class="articles">
       <ul>
-        ${rec[1].map(lookupTitleSync).map(articleNameToArticle).map(renderArticle)}
+        ${rec[1].map(lookupTitleSync).filter(Boolean).map(articleNameToArticle).map(renderArticle)}
       </ul>
     </div>
   </section>
