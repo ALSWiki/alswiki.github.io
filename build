@@ -2,9 +2,13 @@
 pushd wiki &> /dev/null
 python3 scripts/transform.py
 popd &> /dev/null
+pushd edit &> /dev/null
+./build
+popd &> /dev/null
 rm -rf __dist__
 mkdir -p __dist__
 cp -r wiki/__dist__ __dist__/wiki
+cp -r edit/__dist__ __dist__/edit
 cp index.* __dist__
 cp *.js __dist__
 cp -r search __dist__
