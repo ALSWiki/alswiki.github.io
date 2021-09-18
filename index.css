@@ -57,6 +57,10 @@ main {
   color: gray;
 }
 
+.landing-main .edit-container {
+  float: right;
+}
+
 .landing-main {
   text-align: center;
 }
