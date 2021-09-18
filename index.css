@@ -135,6 +135,10 @@ main {
   }
 }
 
+.edit-container {
+  margin-right: 1rem;
+}
+
 /**
  * Google Translation css
  */
