@@ -44,6 +44,18 @@ main {
   border-left: 0.25rem solid #E0E3E6;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:visited {
+  color: rgb(0, 0, 238);
+}
+
 /**
  * Site styling
  */
@@ -55,6 +67,10 @@ main {
 
 .landing-main h2 {
   color: gray;
+}
+
+.landing-main p {
+  margin-top: 1.5rem;
 }
 
 .landing-main .edit-container {
